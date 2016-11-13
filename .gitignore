@@ -1,6 +1,7 @@
 *~
 /pkg/
 /.vagrant
+/.dirty_lips_mood
 /junit
 /log
 /spec/fixtures/manifests
