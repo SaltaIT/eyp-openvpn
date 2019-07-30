@@ -1,6 +1,0 @@
-fixtures:
-  repositories:
-    stdlib: "git://github.com/puppetlabs/puppetlabs-stdlib.git"
-    eyplib: "git://github.com/NTTCom-MS/eyp-eyplib.git"
-  symlinks:
-    openvpn: "#{source_dir}"
