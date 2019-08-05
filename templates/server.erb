@@ -38,7 +38,7 @@ server <%= @server %> <%= @server_netmask %>
 # script-security 2
 
 ### SSL
-<% if @easyrsa -%>
+<% if @easy_rsa -%>
 ca /etc/openvpn/server/<%= @server_name %>/easy-rsa/3/pki/ca.crt
 dh /etc/openvpn/server/<%= @server_name %>/easy-rsa/3/pki/dh.pem
 crl-verify /etc/openvpn/server/<%= @server_name %>/easy-rsa/3/pki/crl.pem
