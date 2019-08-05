@@ -6,7 +6,7 @@ set_var EASYRSA_REQ_PROVINCE    "Barcelona"
 set_var EASYRSA_REQ_CITY        "Barcelona"
 set_var EASYRSA_REQ_ORG         "<%= @easy_rsa_organization %>"
 set_var EASYRSA_REQ_EMAIL       "<%= @easy_rsa_req_email %>"
-set_var EASYRSA_REQ_OU          "<%= @easy_rsa_organization %> EASY CA"
+set_var EASYRSA_REQ_OU          "<%= @easy_rsa_organization_unit %>"
 set_var EASYRSA_KEY_SIZE        2048
 set_var EASYRSA_ALGO            rsa
 set_var EASYRSA_CA_EXPIRE       <%= @easy_rsa_ca_expire %>

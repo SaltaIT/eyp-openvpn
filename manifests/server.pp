@@ -23,6 +23,7 @@ define openvpn::server(
                         $server_netmask = '255.255.255.0',
                         $easy_rsa = true,
                         $easy_rsa_organization = 'systemadmin.es',
+                        $easy_rsa_organization_unit = 'EASY RSA',
                         $easy_rsa_req_email = 'easy-rsa@systemadmin.es',
                         $easy_rsa_ca_expire = '7500',
                         $easy_rsa_cert_expire = '7500',
