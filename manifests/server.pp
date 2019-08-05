@@ -22,9 +22,8 @@ define openvpn::server(
                         $server = undef,
                         $server_netmask = '255.255.255.0',
                         $easy_rsa = true,
-                        $easy_rsa_domain = 'systemadmin.es',
                         $easy_rsa_organization = 'systemadmin.es',
-                        $easy_rsa_req_email = undef,
+                        $easy_rsa_req_email = 'easy-rsa@systemadmin.es',
                         $easy_rsa_ca_expire = '7500',
                         $easy_rsa_cert_expire = '7500',
                         $ca_file = undef,
@@ -94,7 +93,7 @@ define openvpn::server(
 
     exec { "build-ca ${server_name}":
       command => "/etc/openvpn/server/${server_name}/easy-rsa/3/easyrsa build-ca nopass",
-      environment => [ "EASYRSA_REQ_CN=ca.${easy_rsa_domain}" ],
+      environment => [ "EASYRSA_REQ_CN=EASY RSA ${server_name} CA" ],
       cwd     => "/etc/openvpn/server/${server_name}/easy-rsa/3/",
       creates => "/etc/openvpn/server/${server_name}/easy-rsa/3/pki/ca.crt"
       require => Exec["init-pki ${server_name}"],
