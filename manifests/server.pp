@@ -76,7 +76,7 @@ define openvpn::server(
     }
 
     exec { "init-pki ${server_name}":
-      command => './easyrsa init-pki',
+      command => "/etc/openvpn/server/${server_name}/easy-rsa/3/easyrsa init-pki",
       cwd     => "/etc/openvpn/server/${server_name}/easy-rsa/3/",
       creates => "/etc/openvpn/server/${server_name}/easy-rsa/3/pki",
       require => File["/etc/openvpn/server/${server_name}/easy-rsa/3/vars"],
@@ -85,7 +85,7 @@ define openvpn::server(
 
     #./easyrsa gen-dh
     exec { "gen-dh ${server_name}":
-      command => './easyrsa gen-dh',
+      command => "/etc/openvpn/server/${server_name}/easy-rsa/3/easyrsa gen-dh",
       cwd     => "/etc/openvpn/server/${server_name}/easy-rsa/3/",
       creates => "/etc/openvpn/server/${server_name}/easy-rsa/3/pki/dh.pem",
       require => Exec["init-pki ${server_name}"],
@@ -93,7 +93,7 @@ define openvpn::server(
     }
 
     exec { "build-ca ${server_name}":
-      command => './easyrsa build-ca nopass',
+      command => "/etc/openvpn/server/${server_name}/easy-rsa/3/easyrsa build-ca nopass",
       environment => [ "EASYRSA_REQ_CN=ca.${easy_rsa_domain}" ],
       cwd     => "/etc/openvpn/server/${server_name}/easy-rsa/3/",
       require => Exec["init-pki ${server_name}"],
