@@ -61,18 +61,24 @@ define openvpn::server(
   if($easy_rsa)
   {
     # cp -r /usr/share/easy-rsa /etc/openvpn/
-    exec { 'deploy easy-rsa from template':
-      command => "cp -r /usr/share/easy-rsa /etc/openvpn/server/${server_name}/"
+    exec { "deploy easy-rsa from template ${server_name}":
+      command => "cp -r /usr/share/easy-rsa /etc/openvpn/server/${server_name}/",
       require => Exec["mkdir base ${server_name}"],
     }
 
-    file { '/etc/openvpn/server/${server_name}/easy-rsa/3/vars':
+    file { "/etc/openvpn/server/${server_name}/easy-rsa/3/vars":
       ensure => 'present',
       owner => 'root',
       group => 'root',
       mode => '0755',
       content => template("${module_name}/easyrsa/vars.erb"),
+      require => Exec["deploy easy-rsa from template ${server_name}"],
     }
+
+    #exec { "init-pki ${server_name}":
+    #  command =>
+  #    cwd     => "/etc/openvpn/server/${server_name}/easy-rsa/3/",
+#    }
 
   }
   # aqui validacions de ssl related *_file

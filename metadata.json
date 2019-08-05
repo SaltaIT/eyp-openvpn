@@ -32,7 +32,7 @@
     {
       "operatingsystem": "OracleLinux",
       "operatingsystemrelease": [ "7" ]
-    },
+    }
   ],
   "requirements": [
     {
