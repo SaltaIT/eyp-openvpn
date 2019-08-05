@@ -39,11 +39,11 @@ server <%= @server %> <%= @server_netmask %>
 
 ### SSL
 <% if @easyrsa -%>
-ca /etc/openvpn/server/<%= @server_name %>/easy-rsa/3/
-cert /etc/openvpn/server/<%= @server_name %>/easy-rsa/3/
-key /etc/openvpn/server/<%= @server_name %>/easy-rsa/3/
-dh /etc/openvpn/server/<%= @server_name %>/easy-rsa/3/
-crl-verify /etc/openvpn/server/<%= @server_name %>/easy-rsa/3/
+ca /etc/openvpn/server/<%= @server_name %>/easy-rsa/3/...
+cert /etc/openvpn/server/<%= @server_name %>/easy-rsa/3/...
+key /etc/openvpn/server/<%= @server_name %>/easy-rsa/3/...
+dh /etc/openvpn/server/<%= @server_name %>/easy-rsa/3/pki/dh.pem
+crl-verify /etc/openvpn/server/<%= @server_name %>/easy-rsa/3/...
 <% else -%>
 ca <%= @ca_file %>
 cert <%= @cert_file %>

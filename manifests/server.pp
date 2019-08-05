@@ -75,10 +75,31 @@ define openvpn::server(
       require => Exec["deploy easy-rsa from template ${server_name}"],
     }
 
-    #exec { "init-pki ${server_name}":
-    #  command =>
-  #    cwd     => "/etc/openvpn/server/${server_name}/easy-rsa/3/",
-#    }
+    exec { "init-pki ${server_name}":
+      command => './easyrsa init-pki',
+      cwd     => "/etc/openvpn/server/${server_name}/easy-rsa/3/",
+      creates => "/etc/openvpn/server/${server_name}/easy-rsa/3/pki",
+      require => File["/etc/openvpn/server/${server_name}/easy-rsa/3/vars"],
+      timeout => 0,
+    }
+
+    #./easyrsa gen-dh
+    exec { "gen-dh ${server_name}":
+      command => './easyrsa gen-dh',
+      cwd     => "/etc/openvpn/server/${server_name}/easy-rsa/3/",
+      creates => "/etc/openvpn/server/${server_name}/easy-rsa/3/pki/dh.pem",
+      require => Exec["init-pki ${server_name}"],
+      timeout => 0,
+    }
+
+    exec { "build-ca ${server_name}":
+      command => './easyrsa build-ca nopass',
+      environment => [ "EASYRSA_REQ_CN=ca.${easy_rsa_domain}" ],
+      cwd     => "/etc/openvpn/server/${server_name}/easy-rsa/3/",
+      creates => "/etc/openvpn/server/${server_name}/easy-rsa/3/pki/dh.pem",
+      require => Exec["init-pki ${server_name}"],
+      timeout => 0,
+    }
 
   }
   # TODO:
