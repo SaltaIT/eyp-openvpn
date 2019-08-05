@@ -33,9 +33,16 @@ define openvpn::server(
                         $dh_file = undef,
                         $crl_verify_file = undef,
                       ) {
+  Exec {
+    path => '/usr/sbin:/usr/bin:/sbin:/bin',
+  }
+
+  include ::openvpn
+
   exec { "mkdir base ${server_name}":
     command => "mkdir -p /etc/openvpn/server/${server_name}/",
     creates => "/etc/openvpn/server/${server_name}/",
+    require => Class['::openvpn'],
   }
 
   concat { "/etc/openvpn/server/${server_name}.conf":
@@ -67,7 +74,6 @@ define openvpn::server(
       content => template("${module_name}/easyrsa/vars.erb"),
     }
 
-    
   }
   # aqui validacions de ssl related *_file
 
