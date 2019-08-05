@@ -22,6 +22,7 @@ define openvpn::server(
                         $server = undef,
                         $server_netmask = '255.255.255.0',
                         $easy_rsa = true,
+                        $easy_rsa_fqdn_server = 'openvpn.systemadmin.es',
                         $easy_rsa_organization = 'systemadmin.es',
                         $easy_rsa_organization_unit = 'EASY RSA',
                         $easy_rsa_req_email = 'easy-rsa@systemadmin.es',
@@ -100,6 +101,26 @@ define openvpn::server(
       require => Exec["init-pki ${server_name}"],
       timeout => 0,
     }
+
+    exec { "gen-crl ${server_name}":
+      command => "/etc/openvpn/server/${server_name}/easy-rsa/3/easyrsa gen-crl",
+      cwd     => "/etc/openvpn/server/${server_name}/easy-rsa/3/",
+      require => Exec["build-ca ${server_name}"],
+      refreshonly => true,
+      timeout => 0,
+    }
+
+    #easy_rsa_fqdn_server
+    exec { "build server ${server_name} / ${easy_rsa_fqdn_server}":
+      command => "/etc/openvpn/server/${server_name}/easy-rsa/3/easyrsa ${easy_rsa_fqdn_server} nopass",
+      environment => [ "EASYRSA_REQ_CN=EASY RSA ${server_name} CA" ],
+      cwd     => "/etc/openvpn/server/${server_name}/easy-rsa/3/",
+      creates => "/etc/openvpn/server/${server_name}/easy-rsa/3/pki/issued/${easy_rsa_fqdn_server}.crt",
+      require => Exec["init-pki ${server_name}"],
+      notify => Exec["gen-crl ${server_name}"],
+      timeout => 0,
+    }
+
 
   }
   # TODO:
