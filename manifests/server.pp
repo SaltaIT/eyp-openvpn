@@ -112,7 +112,7 @@ define openvpn::server(
 
     #easy_rsa_fqdn_server
     exec { "build server ${server_name} / ${easy_rsa_fqdn_server}":
-      command => "/etc/openvpn/server/${server_name}/easy-rsa/3/easyrsa ${easy_rsa_fqdn_server} nopass",
+      command => "/etc/openvpn/server/${server_name}/easy-rsa/3/easyrsa build-server-full ${easy_rsa_fqdn_server} nopass",
       cwd     => "/etc/openvpn/server/${server_name}/easy-rsa/3/",
       creates => "/etc/openvpn/server/${server_name}/easy-rsa/3/pki/issued/${easy_rsa_fqdn_server}.crt",
       require => Exec["init-pki ${server_name}"],
