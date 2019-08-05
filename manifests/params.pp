@@ -9,7 +9,7 @@ class openvpn::params {
     {
       case $::operatingsystemrelease
       {
-        /^[5-7].*$/:
+        /^7.*$/:
         {
           $include_epel=true
         }

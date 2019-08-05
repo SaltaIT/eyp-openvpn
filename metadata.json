@@ -2,7 +2,7 @@
   "name": "eyp-openvpn",
   "version": "0.1.0",
   "author": "eyp",
-  "summary": null,
+  "summary": "openvpn client/server management",
   "license": "Apache-2.0",
   "source": "https://github.com/NTTCom-MS/eyp-openvpn",
   "project_page": "https://github.com/NTTCom-MS/eyp-openvpn",
@@ -15,28 +15,24 @@
   "operatingsystem_support": [
     {
       "operatingsystem": "RedHat",
-      "operatingsystemrelease": [ "5", "6", "7" ]
+      "operatingsystemrelease": [ "7" ]
     },
     {
       "operatingsystem": "CentOS",
-      "operatingsystemrelease": [ "5", "6", "7" ]
+      "operatingsystemrelease": [ "7" ]
     },
     {
       "operatingsystem": "Scientific",
-      "operatingsystemrelease": [ "5", "6", "7" ]
+      "operatingsystemrelease": [ "7" ]
     },
     {
       "operatingsystem": "OEL",
-      "operatingsystemrelease": [ "5", "6", "7" ]
+      "operatingsystemrelease": [ "7" ]
     },
     {
       "operatingsystem": "OracleLinux",
-      "operatingsystemrelease": [ "5", "6", "7" ]
+      "operatingsystemrelease": [ "7" ]
     },
-    {
-      "operatingsystem": "Ubuntu",
-      "operatingsystemrelease": [ "14.04", "16.04" ]
-    }
   ],
   "requirements": [
     {
