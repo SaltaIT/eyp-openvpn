@@ -81,6 +81,7 @@ define openvpn::server(
 #    }
 
   }
-  # aqui validacions de ssl related *_file
+  # TODO:
+  # else { aqui validacions de ssl related *_file }
 
 }
