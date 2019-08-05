@@ -1,6 +1,6 @@
 class openvpn::params {
 
-  $package_name='openvpn'
+  $package_name=[ 'openvpn', 'easy-rsa' ]
   $service_name='openvpn'
 
   case $::osfamily
