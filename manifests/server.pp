@@ -96,7 +96,6 @@ define openvpn::server(
       command => './easyrsa build-ca nopass',
       environment => [ "EASYRSA_REQ_CN=ca.${easy_rsa_domain}" ],
       cwd     => "/etc/openvpn/server/${server_name}/easy-rsa/3/",
-      creates => "/etc/openvpn/server/${server_name}/easy-rsa/3/pki/dh.pem",
       require => Exec["init-pki ${server_name}"],
       timeout => 0,
     }
