@@ -21,7 +21,7 @@ define openvpn::server(
                         $max_clients = undef,
                         $server = undef,
                         $server_netmask = '255.255.255.0',
-                        $easyrsa = true,
+                        $easy_rsa = true,
                         $easy_rsa_fqdn_server = 'openvpn.systemadmin.es',
                         $easy_rsa_organization = 'systemadmin.es',
                         $easy_rsa_organization_unit = 'EASY RSA',
