@@ -5,5 +5,4 @@ class openvpn (
 
   class { '::openvpn::install': }
   -> Class['::openvpn']
-
 }
