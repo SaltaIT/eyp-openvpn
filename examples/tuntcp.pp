@@ -1,5 +1,6 @@
 openvpn::server { 'tuntcp':
   proto => 'tcp',
+  local => '127.0.0.1',
   client_to_client => true,
   topology => 'subnet',
   server => '172.16.102.0',
