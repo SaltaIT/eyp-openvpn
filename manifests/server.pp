@@ -33,6 +33,10 @@ define openvpn::server(
                         $key_file = undef,
                         $dh_file = undef,
                         $crl_verify_file = undef,
+                        $manage_service = true,
+                        $manage_docker_service       = true,
+                        $service_ensure              = 'running',
+                        $service_enable              = true,
                       ) {
   Exec {
     path => '/usr/sbin:/usr/bin:/sbin:/bin',
@@ -51,6 +55,7 @@ define openvpn::server(
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
+    notify => Openvpn::Server::Service["openvpn-server@${server_name}"],
   }
 
   concat::fragment { "base openvpn ${server_name}":
@@ -82,6 +87,7 @@ define openvpn::server(
       creates => "/etc/openvpn/server/${server_name}/easy-rsa/3/pki",
       require => File["/etc/openvpn/server/${server_name}/easy-rsa/3/vars"],
       timeout => 0,
+      notify => Openvpn::Server::Service["openvpn-server@${server_name}"],
     }
 
     #./easyrsa gen-dh
@@ -91,6 +97,7 @@ define openvpn::server(
       creates => "/etc/openvpn/server/${server_name}/easy-rsa/3/pki/dh.pem",
       require => Exec["init-pki ${server_name}"],
       timeout => 0,
+      notify => Openvpn::Server::Service["openvpn-server@${server_name}"],
     }
 
     exec { "build-ca ${server_name}":
@@ -100,6 +107,7 @@ define openvpn::server(
       creates => "/etc/openvpn/server/${server_name}/easy-rsa/3/pki/ca.crt",
       require => Exec["init-pki ${server_name}"],
       timeout => 0,
+      notify => Openvpn::Server::Service["openvpn-server@${server_name}"],
     }
 
     exec { "gen-crl ${server_name}":
@@ -108,6 +116,7 @@ define openvpn::server(
       require => Exec["build-ca ${server_name}"],
       refreshonly => true,
       timeout => 0,
+      notify => Openvpn::Server::Service["openvpn-server@${server_name}"],
     }
 
     #easy_rsa_fqdn_server
@@ -124,5 +133,12 @@ define openvpn::server(
   }
   # TODO:
   # else { aqui validacions de ssl related *_file }
+
+  openvpn::server::service { "openvpn-server@${server_name}":
+    manage_service        => $manage_service,
+    manage_docker_service => $manage_docker_service,
+    service_ensure        => $service_ensure,
+    service_enable        => $service_enable,
+  }
 
 }
