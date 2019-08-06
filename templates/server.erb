@@ -53,8 +53,6 @@ crl-verify <%= @crl_verify_file %>
 <% end -%>
 ####
 
-# ifconfig-pool-persist /usr/local/etc/openvpn/chroot/ipp.txt 0
-
 <% if defined?(@client_config_dir) -%>
 client-config-dir <%= @client_config_dir %>
 <% end -%>
@@ -76,6 +74,9 @@ push "ping <%= @push_ping %>"
 push "ping-restart <%= @push_ping_restart %>"
 <% end -%>
 
+<% if defined?(@ifconfig_pool_persist_file) -%>
+ifconfig-pool-persist <%= @ifconfig_pool_persist_file %> <%= @ifconfig_pool_persist_seconds %>
+<% end -%>
 <% if @persist_key -%>
 persist-key
 <% end -%>
@@ -88,4 +89,6 @@ chroot <%= @chroot %>
 <% end -%>
 <% if defined?(@change_dir_to) -%>
 cd <%= @change_dir_to %>
+<% else -%>
+cd /etc/openvpn/server/<%= @server_name %>
 <% end -%>
