@@ -13,3 +13,7 @@ openvpn::server { 'tuntcp':
   persist_key                => true,
   persist_tun                => true,
 }
+
+openvpn::server::clientcert { 'croscat.systemadmin.es':
+  server_name => 'tuntcp',
+}

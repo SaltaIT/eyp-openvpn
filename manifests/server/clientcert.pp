@@ -14,6 +14,25 @@
 # Write out database with 1 new entries
 # Data Base Updated
 # [root@tachi 3]#
-define openvpn::server::clientcert() {
-  
+define openvpn::server::clientcert(
+                                    $server_name,
+                                    $ensure = 'present',
+                                    $fqdn   = $name, 
+                                  ) {
+  if($ensure=='present')
+  {
+    exec { "build-ca ${server_name}":
+      command     => "/etc/openvpn/server/${server_name}/easy-rsa/3/easyrsa build-client-full ${fqdn} nopass",
+      cwd         => "/etc/openvpn/server/${server_name}/easy-rsa/3/",
+      creates     => "/etc/openvpn/server/${server_name}/easy-rsa/3/pki/issued/croscat.systemadmin.es.crt",
+      require     => Openvpn::Server::Service["openvpn-server@${server_name}"],
+      notify      => Openvpn::Server::Service["openvpn-server@${server_name}"],
+      timeout     => 0,
+    }
+  }
+  else
+  {
+    fail('unimplemented')
+  }
+
 }
