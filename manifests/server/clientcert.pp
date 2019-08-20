@@ -17,7 +17,7 @@
 define openvpn::server::clientcert(
                                     $server_name,
                                     $ensure = 'present',
-                                    $fqdn   = $name, 
+                                    $fqdn   = $name,
                                   ) {
   if($ensure=='present')
   {
@@ -25,8 +25,7 @@ define openvpn::server::clientcert(
       command     => "/etc/openvpn/server/${server_name}/easy-rsa/3/easyrsa build-client-full ${fqdn} nopass",
       cwd         => "/etc/openvpn/server/${server_name}/easy-rsa/3/",
       creates     => "/etc/openvpn/server/${server_name}/easy-rsa/3/pki/issued/croscat.systemadmin.es.crt",
-      require     => Openvpn::Server::Service["openvpn-server@${server_name}"],
-      notify      => Openvpn::Server::Service["openvpn-server@${server_name}"],
+      require     => Exec["build-ca ${server_name}"],
       timeout     => 0,
     }
   }
