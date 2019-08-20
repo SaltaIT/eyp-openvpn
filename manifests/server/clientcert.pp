@@ -22,11 +22,11 @@ define openvpn::server::clientcert(
   if($ensure=='present')
   {
     exec { "build-ca ${server_name}":
-      command     => "/etc/openvpn/server/${server_name}/easy-rsa/3/easyrsa build-client-full ${fqdn} nopass",
-      cwd         => "/etc/openvpn/server/${server_name}/easy-rsa/3/",
-      creates     => "/etc/openvpn/server/${server_name}/easy-rsa/3/pki/issued/${fqdn}.crt",
-      require     => Exec["build-ca ${server_name}"],
-      timeout     => 0,
+      command => "/etc/openvpn/server/${server_name}/easy-rsa/3/easyrsa build-client-full ${fqdn} nopass",
+      cwd     => "/etc/openvpn/server/${server_name}/easy-rsa/3/",
+      creates => "/etc/openvpn/server/${server_name}/easy-rsa/3/pki/issued/${fqdn}.crt",
+      require => Exec["build-ca ${server_name}"],
+      timeout => 0,
     }
   }
   else
