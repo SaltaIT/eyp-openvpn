@@ -14,3 +14,6 @@
 # Write out database with 1 new entries
 # Data Base Updated
 # [root@tachi 3]#
+define openvpn::server::clientcert() {
+  
+}
