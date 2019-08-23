@@ -71,7 +71,7 @@ define openvpn::server(
     # cp -r /usr/share/easy-rsa /etc/openvpn/
     exec { "deploy easy-rsa from template ${server_name}":
       command => "cp -r /usr/share/easy-rsa /etc/openvpn/server/${server_name}/",
-      creates => "/etc/openvpn/server/${server_name}/easy-rsa"
+      creates => "/etc/openvpn/server/${server_name}/easy-rsa",
       require => Exec["mkdir base ${server_name}"],
     }
 
