@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.1.4
+
+* rename client cert build resource name
+
 ## 0.1.3
 
 * bugfix easy-rsa deploy
