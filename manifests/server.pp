@@ -47,12 +47,12 @@ define openvpn::server(
   include ::openvpn
 
   exec { "mkdir base ${server_name}":
-    command => "mkdir -p /etc/openvpn/server/${server_name}/",
-    creates => "/etc/openvpn/server/${server_name}/",
+    command => "mkdir -p ${openvpn::params::server_conf_dir}/${server_name}/",
+    creates => "${openvpn::params::server_conf_dir}/${server_name}/",
     require => Class['::openvpn'],
   }
 
-  concat { "/etc/openvpn/server/${server_name}.conf":
+  concat { "${openvpn::params::server_conf_dir}/${server_name}.conf":
     ensure => 'present',
     owner  => 'root',
     group  => 'root',
@@ -61,7 +61,7 @@ define openvpn::server(
   }
 
   concat::fragment { "base openvpn ${server_name}":
-    target  => "/etc/openvpn/server/${server_name}.conf",
+    target  => "${openvpn::params::server_conf_dir}/${server_name}.conf",
     order   => '00',
     content => template("${module_name}/server.erb"),
   }
@@ -70,12 +70,12 @@ define openvpn::server(
   {
     # cp -r /usr/share/easy-rsa /etc/openvpn/
     exec { "deploy easy-rsa from template ${server_name}":
-      command => "cp -r /usr/share/easy-rsa /etc/openvpn/server/${server_name}/",
-      creates => "/etc/openvpn/server/${server_name}/easy-rsa",
+      command => "cp -r /usr/share/easy-rsa ${openvpn::params::server_conf_dir}/${server_name}/",
+      creates => "${openvpn::params::server_conf_dir}/${server_name}/easy-rsa",
       require => Exec["mkdir base ${server_name}"],
     }
 
-    file { "/etc/openvpn/server/${server_name}/easy-rsa/3/vars":
+    file { "${openvpn::params::server_conf_dir}/${server_name}/easy-rsa/3/vars":
       ensure  => 'present',
       owner   => 'root',
       group   => 'root',
@@ -85,37 +85,37 @@ define openvpn::server(
     }
 
     exec { "init-pki ${server_name}":
-      command => "/etc/openvpn/server/${server_name}/easy-rsa/3/easyrsa init-pki",
-      cwd     => "/etc/openvpn/server/${server_name}/easy-rsa/3/",
-      creates => "/etc/openvpn/server/${server_name}/easy-rsa/3/pki",
-      require => File["/etc/openvpn/server/${server_name}/easy-rsa/3/vars"],
+      command => "${openvpn::params::server_conf_dir}/${server_name}/easy-rsa/3/easyrsa init-pki",
+      cwd     => "${openvpn::params::server_conf_dir}/${server_name}/easy-rsa/3/",
+      creates => "${openvpn::params::server_conf_dir}/${server_name}/easy-rsa/3/pki",
+      require => File["${openvpn::params::server_conf_dir}/${server_name}/easy-rsa/3/vars"],
       timeout => 0,
       notify  => Openvpn::Server::Service["openvpn-server@${server_name}"],
     }
 
     #./easyrsa gen-dh
     exec { "gen-dh ${server_name}":
-      command => "/etc/openvpn/server/${server_name}/easy-rsa/3/easyrsa gen-dh",
-      cwd     => "/etc/openvpn/server/${server_name}/easy-rsa/3/",
-      creates => "/etc/openvpn/server/${server_name}/easy-rsa/3/pki/dh.pem",
+      command => "${openvpn::params::server_conf_dir}/${server_name}/easy-rsa/3/easyrsa gen-dh",
+      cwd     => "${openvpn::params::server_conf_dir}/${server_name}/easy-rsa/3/",
+      creates => "${openvpn::params::server_conf_dir}/${server_name}/easy-rsa/3/pki/dh.pem",
       require => Exec["init-pki ${server_name}"],
       timeout => 0,
       notify  => Openvpn::Server::Service["openvpn-server@${server_name}"],
     }
 
     exec { "build-ca ${server_name}":
-      command     => "/etc/openvpn/server/${server_name}/easy-rsa/3/easyrsa build-ca nopass",
+      command     => "${openvpn::params::server_conf_dir}/${server_name}/easy-rsa/3/easyrsa build-ca nopass",
       environment => [ "EASYRSA_REQ_CN=EASY RSA ${server_name} CA" ],
-      cwd         => "/etc/openvpn/server/${server_name}/easy-rsa/3/",
-      creates     => "/etc/openvpn/server/${server_name}/easy-rsa/3/pki/ca.crt",
+      cwd         => "${openvpn::params::server_conf_dir}/${server_name}/easy-rsa/3/",
+      creates     => "${openvpn::params::server_conf_dir}/${server_name}/easy-rsa/3/pki/ca.crt",
       require     => Exec["init-pki ${server_name}"],
       timeout     => 0,
       notify      => Openvpn::Server::Service["openvpn-server@${server_name}"],
     }
 
     exec { "gen-crl ${server_name}":
-      command     => "/etc/openvpn/server/${server_name}/easy-rsa/3/easyrsa gen-crl",
-      cwd         => "/etc/openvpn/server/${server_name}/easy-rsa/3/",
+      command     => "${openvpn::params::server_conf_dir}/${server_name}/easy-rsa/3/easyrsa gen-crl",
+      cwd         => "${openvpn::params::server_conf_dir}/${server_name}/easy-rsa/3/",
       require     => Exec["build-ca ${server_name}"],
       refreshonly => true,
       timeout     => 0,
@@ -124,9 +124,9 @@ define openvpn::server(
 
     #easy_rsa_fqdn_server
     exec { "build server ${server_name} / ${easy_rsa_fqdn_server}":
-      command => "/etc/openvpn/server/${server_name}/easy-rsa/3/easyrsa build-server-full ${easy_rsa_fqdn_server} nopass",
-      cwd     => "/etc/openvpn/server/${server_name}/easy-rsa/3/",
-      creates => "/etc/openvpn/server/${server_name}/easy-rsa/3/pki/issued/${easy_rsa_fqdn_server}.crt",
+      command => "${openvpn::params::server_conf_dir}/${server_name}/easy-rsa/3/easyrsa build-server-full ${easy_rsa_fqdn_server} nopass",
+      cwd     => "${openvpn::params::server_conf_dir}/${server_name}/easy-rsa/3/",
+      creates => "${openvpn::params::server_conf_dir}/${server_name}/easy-rsa/3/pki/issued/${easy_rsa_fqdn_server}.crt",
       require => Exec["init-pki ${server_name}"],
       notify  => Exec["gen-crl ${server_name}"],
       timeout => 0,

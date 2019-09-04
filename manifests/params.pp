@@ -12,6 +12,8 @@ class openvpn::params {
         /^7.*$/:
         {
           $include_epel=true
+          $client_conf_dir='/etc/openvpn/client'
+          $server_conf_dir='/etc/openvpn/server'
           $systemd_server_template_service='openvpn-server'
           $systemd_client_template_service='openvpn-client'
         }
