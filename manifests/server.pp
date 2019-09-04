@@ -137,7 +137,7 @@ define openvpn::server(
   # TODO:
   # else { aqui validacions de ssl related *_file }
 
-  openvpn::server::service { "openvpn-server@${server_name}":
+  openvpn::server::service { "${openvpn::params::systemd_server_template_service}@${server_name}":
     manage_service        => $manage_service,
     manage_docker_service => $manage_docker_service,
     service_ensure        => $service_ensure,

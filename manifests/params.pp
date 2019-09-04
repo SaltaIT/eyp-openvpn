@@ -12,6 +12,8 @@ class openvpn::params {
         /^7.*$/:
         {
           $include_epel=true
+          $systemd_server_template_service='openvpn-server'
+          $systemd_client_template_service='openvpn-client'
         }
         default: { fail("Unsupported RHEL/CentOS version! - ${::operatingsystemrelease}")  }
       }

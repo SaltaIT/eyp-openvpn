@@ -1,4 +1,4 @@
-define openvpn::server::service (
+define openvpn::client::service (
                                   $manage_service        = true,
                                   $manage_docker_service = true,
                                   $service_ensure        = 'running',
