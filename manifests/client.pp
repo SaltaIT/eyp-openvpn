@@ -26,10 +26,16 @@
 # </key>
 define openvpn::client(
                         $client_name           = $name,
+                        $remote                = $name,
+                        $remote_port           = '1184',
                         $manage_service        = true,
                         $manage_docker_service = true,
                         $service_ensure        = 'running',
                         $service_enable        = true,
+                        $dev                   = 'tun1',
+                        $proto                 = undef,
+                        $persist_key           = false,
+                        $persist_tun           = false,
                       ) {
   # Exec {
   #   path => '/usr/sbin:/usr/bin:/sbin:/bin',
