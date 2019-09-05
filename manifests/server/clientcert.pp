@@ -19,12 +19,14 @@ define openvpn::server::clientcert(
                                     $ensure = 'present',
                                     $fqdn   = $name,
                                   ) {
+  include ::openvpn
+
   if($ensure=='present')
   {
     exec { "build-client ${fqdn} ${server_name}":
-      command => "/etc/openvpn/server/${server_name}/easy-rsa/3/easyrsa build-client-full ${fqdn} nopass",
-      cwd     => "/etc/openvpn/server/${server_name}/easy-rsa/3/",
-      creates => "/etc/openvpn/server/${server_name}/easy-rsa/3/pki/issued/${fqdn}.crt",
+      command => "${openvpn::params::server_conf_dir}/${server_name}/easy-rsa/3/easyrsa build-client-full ${fqdn} nopass",
+      cwd     => "${openvpn::params::server_conf_dir}/${server_name}/easy-rsa/3/",
+      creates => "${openvpn::params::server_conf_dir}/${server_name}/easy-rsa/3/pki/issued/${fqdn}.crt",
       require => Exec["build-ca ${server_name}"],
       timeout => 0,
     }

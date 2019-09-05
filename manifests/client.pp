@@ -26,6 +26,10 @@
 # </key>
 define openvpn::client(
                         $client_name = $name,
+                        $manage_service                = true,
+                        $manage_docker_service         = true,
+                        $service_ensure                = 'running',
+                        $service_enable                = true,
                       ) {
   Exec {
     path => '/usr/sbin:/usr/bin:/sbin:/bin',
@@ -34,8 +38,8 @@ define openvpn::client(
   include ::openvpn
 
   exec { "mkdir base ${client_name}":
-    command => "mkdir -p /etc/openvpn/client/${client_name}/",
-    creates => "/etc/openvpn/client/${client_name}/",
+    command => "mkdir -p ${openvpn::params::client_conf_dir}/${client_name}/",
+    creates => "${openvpn::params::client_conf_dir}/${client_name}/",
     require => Class['::openvpn'],
   }
 
