@@ -25,27 +25,27 @@
 # ...
 # </key>
 define openvpn::client(
-                        $client_name = $name,
-                        $manage_service                = true,
-                        $manage_docker_service         = true,
-                        $service_ensure                = 'running',
-                        $service_enable                = true,
+                        $client_name           = $name,
+                        $manage_service        = true,
+                        $manage_docker_service = true,
+                        $service_ensure        = 'running',
+                        $service_enable        = true,
                       ) {
-  Exec {
-    path => '/usr/sbin:/usr/bin:/sbin:/bin',
-  }
+  # Exec {
+  #   path => '/usr/sbin:/usr/bin:/sbin:/bin',
+  # }
 
   include ::openvpn
 
-  exec { "mkdir base ${client_name}":
-    command => "mkdir -p ${openvpn::params::client_conf_dir}/${client_name}/",
-    creates => "${openvpn::params::client_conf_dir}/${client_name}/",
-    require => Class['::openvpn'],
-  }
+  # exec { "mkdir base ${client_name}":
+  #   command => "mkdir -p ${openvpn::params::client_conf_dir}/${client_name}/",
+  #   creates => "${openvpn::params::client_conf_dir}/${client_name}/",
+  #   require => Class['::openvpn'],
+  # }
 
   # ...
 
-  openvpn::client::service { "${openvpn::params::systemd_client_template_service}@${server_name}":
+  openvpn::client::service { "${openvpn::params::systemd_client_template_service}@${client_name}":
     manage_service        => $manage_service,
     manage_docker_service => $manage_docker_service,
     service_ensure        => $service_ensure,
