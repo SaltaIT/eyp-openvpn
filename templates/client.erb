@@ -1,11 +1,17 @@
 client
-dev tun
+dev <%= @dev %>
 
 comp-lzo
-proto tcp
+<% if defined?(@proto) -%>
+proto <%= @proto %>
+<% end -%>
 
+<% if @persist_key -%>
 persist-key
+<% end -%>
+<% if @persist_tun -%>
 persist-tun
+<% end -%>
 
 remote vpn.systemadmin.es 1184
 
