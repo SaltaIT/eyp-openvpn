@@ -1,0 +1,32 @@
+client
+dev <%= @dev %>
+
+comp-lzo
+<% if defined?(@proto) -%>
+proto <%= @proto %>
+<% end -%>
+
+<% if @persist_key -%>
+persist-key
+<% end -%>
+<% if @persist_tun -%>
+persist-tun
+<% end -%>
+
+remote vpn.systemadmin.es 1184
+
+tls-client
+
+ns-cert-type server
+
+<ca>
+...
+</ca>
+
+<cert>
+...
+</cert>
+
+<key>
+...
+</key>
