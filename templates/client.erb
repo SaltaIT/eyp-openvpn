@@ -19,14 +19,6 @@ tls-client
 
 ns-cert-type server
 
-<ca>
-...
-</ca>
-
-<cert>
-...
-</cert>
-
-<key>
-...
-</key>
+ca /etc/openvpn/client/<%= @client_name %>/ca.pem
+cert /etc/openvpn/client/<%= @client_name %>/cert.pem
+key /etc/openvpn/client/<%= @client_name %>/key.pem

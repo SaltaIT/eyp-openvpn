@@ -25,6 +25,9 @@
 # ...
 # </key>
 define openvpn::client(
+                        $ca_source,
+                        $cert_source,
+                        $key_source,
                         $client_name           = $name,
                         $remote                = $name,
                         $remote_port           = '1184',
@@ -43,11 +46,38 @@ define openvpn::client(
 
   include ::openvpn
 
-  # exec { "mkdir base ${client_name}":
-  #   command => "mkdir -p ${openvpn::params::client_conf_dir}/${client_name}/",
-  #   creates => "${openvpn::params::client_conf_dir}/${client_name}/",
-  #   require => Class['::openvpn'],
-  # }
+  exec { "mkdir base ${client_name}":
+    command => "mkdir -p ${openvpn::params::client_conf_dir}/${client_name}/",
+    creates => "${openvpn::params::client_conf_dir}/${client_name}/",
+    require => Class['::openvpn'],
+  }
+
+  file { "${openvpn::params::client_conf_dir}/${client_name}/ca.pem":
+    ensure  => 'present',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    source  => $ca_source,
+    require => Exec["mkdir base ${client_name}"],
+  }
+
+  file { "${openvpn::params::client_conf_dir}/${client_name}/cert.pem":
+    ensure  => 'present',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    source  => $cert_source,
+    require => Exec["mkdir base ${client_name}"],
+  }
+
+  file { "${openvpn::params::client_conf_dir}/${client_name}/key.pem":
+    ensure  => 'present',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    source  => $key_source,
+    require => Exec["mkdir base ${client_name}"],
+  }
 
   # ...
 
