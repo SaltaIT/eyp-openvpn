@@ -33,6 +33,14 @@
     {
       "operatingsystem": "OracleLinux",
       "operatingsystemrelease": [ "7" ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [ "10" ]
+    },
+    {
+      "operatingsystem": "Raspbian",
+      "operatingsystemrelease": [ "10" ]
     }
   ],
   "requirements": [

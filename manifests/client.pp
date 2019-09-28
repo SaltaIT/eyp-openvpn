@@ -39,6 +39,7 @@ define openvpn::client(
                         $proto                 = undef,
                         $persist_key           = false,
                         $persist_tun           = false,
+                        $tls_client            = false,
                       ) {
   # Exec {
   #   path => '/usr/sbin:/usr/bin:/sbin:/bin',

@@ -15,7 +15,9 @@ persist-tun
 
 remote <%= @remote %> <%= @remote_port %>
 
+<% if @tls_client -%>
 tls-client
+<% end -%>
 
 ns-cert-type server
 
