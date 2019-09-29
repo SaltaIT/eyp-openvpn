@@ -52,6 +52,12 @@ define openvpn::server(
     require => Class['::openvpn'],
   }
 
+  exec { "mkdir -p ccd ${client_conf_dir} ${server_name}":
+    command => "mkdir -p ${openvpn::params::server_conf_dir}/${server_name}/${client_conf_dir}",
+    creates => "${openvpn::params::server_conf_dir}/${server_name}/${client_conf_dir}",
+    require => Class['::openvpn'],
+  }
+
   concat { "${openvpn::params::server_conf_dir}/${server_name}.conf":
     ensure => 'present',
     owner  => 'root',

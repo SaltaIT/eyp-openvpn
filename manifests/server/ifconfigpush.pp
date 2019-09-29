@@ -1,22 +1,23 @@
 define openvpn::server::ifconfigpush(
                                       $server_name,
                                       $ipaddr,
-                                      $ccd     = 'ccd',
-                                      $fqdn    = $name,
-                                      $ensure  = 'present',
-                                      $netmask = '255.255.255.0',
-                                      $order   = '00',
+                                      $client_conf_dir = 'ccd',
+                                      $fqdn            = $name,
+                                      $ensure          = 'present',
+                                      $netmask         = '255.255.255.0',
+                                      $order           = '00',
                                     ) {
   include ::openvpn
 
   if(!defined(Concat["${openvpn::params::server_conf_dir}/${server_name}/${ccd}/${fqdn}"]))
   {
     concat { "${openvpn::params::server_conf_dir}/${server_name}/${ccd}/${fqdn}":
-      ensure => 'present',
-      owner  => 'root',
-      group  => 'root',
-      mode   => '0644',
-      notify => Openvpn::Server::Service["openvpn-server@${server_name}"],
+      ensure  => 'present',
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      notify  => Openvpn::Server::Service["openvpn-server@${server_name}"],
+      require => Exec["mkdir -p ccd ${client_conf_dir} ${server_name}"]
     }
   }
 
