@@ -12,7 +12,7 @@ define openvpn::server::ifconfigpush(
   if(!defined(Concat["${openvpn::params::server_conf_dir}/${server_name}/${ccd}/${fqdn}"]))
   {
     concat { "${openvpn::params::server_conf_dir}/${server_name}/${ccd}/${fqdn}":
-      ensure => $ensure,
+      ensure => 'present',
       owner  => 'root',
       group  => 'root',
       mode   => '0644',
