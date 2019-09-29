@@ -9,7 +9,7 @@ define openvpn::server::ifconfigpush(
                                     ) {
   include ::openvpn
 
-  if(!defined(Concat[]))
+  if(!defined(Concat["${openvpn::params::server_conf_dir}/${server_name}/${ccd}/${fqdn}"]))
   {
     concat { "${openvpn::params::server_conf_dir}/${server_name}/${ccd}/${fqdn}":
       ensure => $ensure,
