@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.1.8
+
+* improved compatibility
+
 ## 0.1.7
 
 * openvpn client config file management
