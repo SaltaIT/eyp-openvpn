@@ -1,12 +1,12 @@
 {
   "name": "eyp-openvpn",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": "eyp",
   "summary": "openvpn client/server management",
   "license": "Apache-2.0",
-  "source": "https://github.com/NTTCom-MS/eyp-openvpn",
-  "project_page": "https://github.com/NTTCom-MS/eyp-openvpn",
-  "issues_url": "https://github.com/NTTCom-MS/eyp-openvpn/issues",
+  "source": "https://github.com/SaltaIT/eyp-openvpn",
+  "project_page": "https://github.com/SaltaIT/eyp-openvpn",
+  "issues_url": "https://github.com/SaltaIT/eyp-openvpn/issues",
   "dependencies": [
     {"name":"puppetlabs/stdlib","version_requirement":">= 1.0.0 < 9.9.9"},
     {"name":"puppetlabs/concat","version_requirement":">= 1.0.0 < 9.9.9"},
@@ -33,6 +33,14 @@
     {
       "operatingsystem": "OracleLinux",
       "operatingsystemrelease": [ "7" ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [ "10" ]
+    },
+    {
+      "operatingsystem": "Raspbian",
+      "operatingsystemrelease": [ "10" ]
     }
   ],
   "requirements": [

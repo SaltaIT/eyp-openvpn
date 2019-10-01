@@ -13,20 +13,14 @@ persist-key
 persist-tun
 <% end -%>
 
-remote vpn.systemadmin.es 1184
+remote <%= @remote %> <%= @remote_port %>
 
+<% if @tls_client -%>
 tls-client
+<% end -%>
 
 ns-cert-type server
 
-<ca>
-...
-</ca>
-
-<cert>
-...
-</cert>
-
-<key>
-...
-</key>
+ca /etc/openvpn/client/<%= @client_name %>/ca.pem
+cert /etc/openvpn/client/<%= @client_name %>/cert.pem
+key /etc/openvpn/client/<%= @client_name %>/key.pem
