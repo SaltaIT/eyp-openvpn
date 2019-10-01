@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.1.7
+
+* openvpn client config file management
+
 ## 0.1.6
 
 * bugfix **openvpn::client**
