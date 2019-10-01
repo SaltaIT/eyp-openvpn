@@ -85,7 +85,7 @@ define openvpn::client(
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
-    notify => Openvpn::Client::Service["openvpn-server@${client_name}"],
+    notify => Openvpn::Client::Service["${openvpn::params::systemd_client_template_service}@${client_name}"],
   }
 
   concat::fragment { "base openvpn ${client_name}":
