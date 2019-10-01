@@ -41,9 +41,9 @@ define openvpn::client(
                         $persist_tun           = false,
                         $tls_client            = false,
                       ) {
-  # Exec {
-  #   path => '/usr/sbin:/usr/bin:/sbin:/bin',
-  # }
+  Exec {
+    path => '/usr/sbin:/usr/bin:/sbin:/bin',
+  }
 
   include ::openvpn
 
