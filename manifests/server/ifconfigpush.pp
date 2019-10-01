@@ -9,9 +9,9 @@ define openvpn::server::ifconfigpush(
                                     ) {
   include ::openvpn
 
-  if(!defined(Concat["${openvpn::params::server_conf_dir}/${server_name}/${ccd}/${fqdn}"]))
+  if(!defined(Concat["${openvpn::params::server_conf_dir}/${server_name}/${client_config_dir}/${fqdn}"]))
   {
-    concat { "${openvpn::params::server_conf_dir}/${server_name}/${ccd}/${fqdn}":
+    concat { "${openvpn::params::server_conf_dir}/${server_name}/${client_config_dir}/${fqdn}":
       ensure  => 'present',
       owner   => 'root',
       group   => 'root',
