@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.1.5
+
+* rework **openvpn::client**
+
 ## 0.1.4
 
 * rename client cert build resource name
