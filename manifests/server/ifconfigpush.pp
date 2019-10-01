@@ -26,7 +26,7 @@ define openvpn::server::ifconfigpush(
     concat::fragment { "ifconfig push ${server_name} ${client_config_dir} ${fqdn}":
       target  => "${openvpn::params::server_conf_dir}/${server_name}/${client_config_dir}/${fqdn}",
       order   => $order,
-      content => template("${module_name}/server.erb"),
+      content => template("${module_name}/server/ifconfigpush.erb"),
     }
   }
 }
