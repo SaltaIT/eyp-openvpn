@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.1.10
+
+* added more options to **openvpn::client**
+
 ## 0.1.9
 
 * improved compatibility

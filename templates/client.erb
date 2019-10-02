@@ -1,7 +1,9 @@
 client
 dev <%= @dev %>
 
+<% if @comp_lzo -%>
 comp-lzo
+<% end -%>
 <% if defined?(@proto) -%>
 proto <%= @proto %>
 <% end -%>
@@ -19,7 +21,9 @@ remote <%= @remote %> <%= @remote_port %>
 tls-client
 <% end -%>
 
-ns-cert-type server
+<% if defined?(@ns_cert_type) -%>
+ns-cert-type <%= @ns_cert_type %>
+<% end -%>
 
 ca /etc/openvpn/client/<%= @client_name %>/ca.pem
 cert /etc/openvpn/client/<%= @client_name %>/cert.pem
