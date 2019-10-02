@@ -40,6 +40,8 @@ define openvpn::client(
                         $persist_key           = false,
                         $persist_tun           = false,
                         $tls_client            = false,
+                        $comp_lzo              = false,
+                        $ns_cert_type          = undef,
                       ) {
   Exec {
     path => '/usr/sbin:/usr/bin:/sbin:/bin',
