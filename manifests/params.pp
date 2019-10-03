@@ -29,7 +29,14 @@ class openvpn::params {
         {
           case $::operatingsystemrelease
           {
-            /^1[68].*$/:
+            /^16.*$/:
+            {
+              $client_conf_dir='/etc/openvpn'
+              $server_conf_dir='/etc/openvpn'
+              $systemd_server_template_service='openvpn'
+              $systemd_client_template_service='openvpn'
+            }
+            /^18.*$/:
             {
               fail('Currently unsupported')
             }
