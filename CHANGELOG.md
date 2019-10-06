@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.1.11
+
+* Added Ubuntu 16.04 support
+
 ## 0.1.10
 
 * added more options to **openvpn::client**
