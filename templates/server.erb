@@ -39,11 +39,11 @@ server <%= @server %> <%= @server_netmask %>
 
 ### SSL
 <% if @easy_rsa -%>
-ca /etc/openvpn/server/<%= @server_name %>/easy-rsa/3/pki/ca.crt
-dh /etc/openvpn/server/<%= @server_name %>/easy-rsa/3/pki/dh.pem
-crl-verify /etc/openvpn/server/<%= @server_name %>/easy-rsa/3/pki/crl.pem
-cert /etc/openvpn/server/<%= @server_name %>/easy-rsa/3/pki/issued/<%= @easy_rsa_fqdn_server %>.crt
-key /etc/openvpn/server/<%= @server_name %>/easy-rsa/3/pki/private/<%= @easy_rsa_fqdn_server %>.key
+ca <%= scope.lookupvar('openvpn::params::server_conf_dir') %>/<%= @server_name %>/easy-rsa/3/pki/ca.crt
+dh <%= scope.lookupvar('openvpn::params::server_conf_dir') %>/<%= @server_name %>/easy-rsa/3/pki/dh.pem
+crl-verify <%= scope.lookupvar('openvpn::params::server_conf_dir') %>/<%= @server_name %>/easy-rsa/3/pki/crl.pem
+cert <%= scope.lookupvar('openvpn::params::server_conf_dir') %>/<%= @server_name %>/easy-rsa/3/pki/issued/<%= @easy_rsa_fqdn_server %>.crt
+key <%= scope.lookupvar('openvpn::params::server_conf_dir') %>/<%= @server_name %>/easy-rsa/3/pki/private/<%= @easy_rsa_fqdn_server %>.key
 <% else -%>
 ca <%= @ca_file %>
 cert <%= @cert_file %>
@@ -90,5 +90,5 @@ chroot <%= @chroot %>
 <% if defined?(@change_dir_to) -%>
 cd <%= @change_dir_to %>
 <% else -%>
-cd /etc/openvpn/server/<%= @server_name %>
+cd <%= scope.lookupvar('openvpn::params::server_conf_dir') %>/<%= @server_name %>
 <% end -%>

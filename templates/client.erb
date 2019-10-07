@@ -21,6 +21,6 @@ tls-client
 
 ns-cert-type server
 
-ca /etc/openvpn/client/<%= @client_name %>/ca.pem
-cert /etc/openvpn/client/<%= @client_name %>/cert.pem
-key /etc/openvpn/client/<%= @client_name %>/key.pem
+ca <%= scope.lookupvar('openvpn::params::client_conf_dir') %>/<%= @client_name %>/ca.pem
+cert <%= scope.lookupvar('openvpn::params::client_conf_dir') %>/<%= @client_name %>/cert.pem
+key <%= scope.lookupvar('openvpn::params::client_conf_dir') %>/<%= @client_name %>/key.pem

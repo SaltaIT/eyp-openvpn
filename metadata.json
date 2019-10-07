@@ -1,6 +1,6 @@
 {
   "name": "eyp-openvpn",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": "eyp",
   "summary": "openvpn client/server management",
   "license": "Apache-2.0",
@@ -41,6 +41,10 @@
     {
       "operatingsystem": "Raspbian",
       "operatingsystemrelease": [ "10" ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [ "16.04", "18.04" ]
     }
   ],
   "requirements": [
