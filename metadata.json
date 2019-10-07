@@ -1,10 +1,6 @@
 {
   "name": "eyp-openvpn",
-<<<<<<< HEAD
-  "version": "0.1.5",
-=======
-  "version": "0.1.11",
->>>>>>> d60af06ec99d8e5ae5feff2c3db229e6c28182a1
+  "version": "0.1.12",
   "author": "eyp",
   "summary": "openvpn client/server management",
   "license": "Apache-2.0",
