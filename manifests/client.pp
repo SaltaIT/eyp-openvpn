@@ -40,10 +40,12 @@ define openvpn::client(
                         $persist_key           = false,
                         $persist_tun           = false,
                         $tls_client            = false,
+                        $comp_lzo              = false,
+                        $ns_cert_type          = undef,
                       ) {
-  # Exec {
-  #   path => '/usr/sbin:/usr/bin:/sbin:/bin',
-  # }
+  Exec {
+    path => '/usr/sbin:/usr/bin:/sbin:/bin',
+  }
 
   include ::openvpn
 
@@ -80,7 +82,19 @@ define openvpn::client(
     require => Exec["mkdir base ${client_name}"],
   }
 
-  # ...
+  concat { "${openvpn::params::client_conf_dir}/${client_name}.conf":
+    ensure => 'present',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+    notify => Openvpn::Client::Service["${openvpn::params::systemd_client_template_service}@${client_name}"],
+  }
+
+  concat::fragment { "base openvpn ${client_name}":
+    target  => "${openvpn::params::client_conf_dir}/${client_name}.conf",
+    order   => '00',
+    content => template("${module_name}/client.erb"),
+  }
 
   openvpn::client::service { "${openvpn::params::systemd_client_template_service}@${client_name}":
     manage_service        => $manage_service,

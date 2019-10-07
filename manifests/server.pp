@@ -63,7 +63,7 @@ define openvpn::server(
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
-    notify => Openvpn::Server::Service["openvpn-server@${server_name}"],
+    notify => Openvpn::Server::Service["${openvpn::params::systemd_server_template_service}@${server_name}"],
   }
 
   concat::fragment { "base openvpn ${server_name}":
@@ -96,7 +96,7 @@ define openvpn::server(
       creates => "${openvpn::params::server_conf_dir}/${server_name}/easy-rsa/3/pki",
       require => File["${openvpn::params::server_conf_dir}/${server_name}/easy-rsa/3/vars"],
       timeout => 0,
-      notify  => Openvpn::Server::Service["openvpn-server@${server_name}"],
+      notify  => Openvpn::Server::Service["${openvpn::params::systemd_server_template_service}@${server_name}"],
     }
 
     #./easyrsa gen-dh
@@ -106,7 +106,7 @@ define openvpn::server(
       creates => "${openvpn::params::server_conf_dir}/${server_name}/easy-rsa/3/pki/dh.pem",
       require => Exec["init-pki ${server_name}"],
       timeout => 0,
-      notify  => Openvpn::Server::Service["openvpn-server@${server_name}"],
+      notify  => Openvpn::Server::Service["${openvpn::params::systemd_server_template_service}@${server_name}"],
     }
 
     exec { "build-ca ${server_name}":
@@ -116,7 +116,7 @@ define openvpn::server(
       creates     => "${openvpn::params::server_conf_dir}/${server_name}/easy-rsa/3/pki/ca.crt",
       require     => Exec["init-pki ${server_name}"],
       timeout     => 0,
-      notify      => Openvpn::Server::Service["openvpn-server@${server_name}"],
+      notify      => Openvpn::Server::Service["${openvpn::params::systemd_server_template_service}@${server_name}"],
     }
 
     exec { "gen-crl ${server_name}":
@@ -125,7 +125,7 @@ define openvpn::server(
       require     => Exec["build-ca ${server_name}"],
       refreshonly => true,
       timeout     => 0,
-      notify      => Openvpn::Server::Service["openvpn-server@${server_name}"],
+      notify      => Openvpn::Server::Service["${openvpn::params::systemd_server_template_service}@${server_name}"],
     }
 
     #easy_rsa_fqdn_server
