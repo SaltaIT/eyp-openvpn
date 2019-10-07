@@ -35,7 +35,7 @@ define openvpn::client(
                         $manage_docker_service = true,
                         $service_ensure        = 'running',
                         $service_enable        = true,
-                        $dev                   = 'tun1',
+                        $dev                   = 'tun',
                         $proto                 = undef,
                         $persist_key           = false,
                         $persist_tun           = false,

@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.1.12
+
+* Updated default paramter for **openvpn::client::dev**
+* bugfix Ubuntu 16.04 compatibility
+
 ## 0.1.11
 
 * Added Ubuntu 16.04 support
