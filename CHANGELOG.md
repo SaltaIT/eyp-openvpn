@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.1.14
+
+* changed certificates file mode for **openvpn::client**
+
 ## 0.1.13
 
 * Updated default paramter for **openvpn::client::dev**
