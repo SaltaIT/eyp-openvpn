@@ -59,7 +59,7 @@ define openvpn::client(
     ensure  => 'present',
     owner   => 'root',
     group   => 'root',
-    mode    => '0755',
+    mode    => '0644',
     source  => $ca_source,
     require => Exec["mkdir base ${client_name}"],
   }
@@ -68,7 +68,7 @@ define openvpn::client(
     ensure  => 'present',
     owner   => 'root',
     group   => 'root',
-    mode    => '0755',
+    mode    => '0644',
     source  => $cert_source,
     require => Exec["mkdir base ${client_name}"],
   }
@@ -77,7 +77,7 @@ define openvpn::client(
     ensure  => 'present',
     owner   => 'root',
     group   => 'root',
-    mode    => '0755',
+    mode    => '0644',
     source  => $key_source,
     require => Exec["mkdir base ${client_name}"],
   }
