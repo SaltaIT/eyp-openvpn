@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.1.15
+
+* Added **Ubuntu 20.04** support
+
 ## 0.1.14
 
 * changed certificates file mode for **openvpn::client**
