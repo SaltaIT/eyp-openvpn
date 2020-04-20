@@ -40,6 +40,13 @@ class openvpn::params {
             {
               fail('Currently unsupported')
             }
+            /^20.*$/:
+            {
+              $client_conf_dir='/etc/openvpn/client'
+              $server_conf_dir='/etc/openvpn/server'
+              $systemd_server_template_service='openvpn-server'
+              $systemd_client_template_service='openvpn-client'
+            }
             default: { fail("Unsupported Ubuntu version! - ${::operatingsystemrelease}")  }
           }
         }
