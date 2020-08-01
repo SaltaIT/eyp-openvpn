@@ -11,6 +11,7 @@ set_var EASYRSA_KEY_SIZE        2048
 set_var EASYRSA_ALGO            rsa
 set_var EASYRSA_CA_EXPIRE       <%= @easy_rsa_ca_expire %>
 set_var EASYRSA_CERT_EXPIRE     <%= @easy_rsa_cert_expire %>
+set_var EASYRSA_CRL_DAYS        <%= @easy_rsa_crl_days %>
 set_var EASYRSA_NS_SUPPORT      "no"
 set_var EASYRSA_NS_COMMENT      "<%= @easy_rsa_organization %> CERTIFICATE AUTHORITY"
 set_var EASYRSA_EXT_DIR         "$EASYRSA/x509-types"
