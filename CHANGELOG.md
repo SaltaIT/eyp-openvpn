@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.1.16
+
+*  Added **easy_rsa_crl_days** default set to 7500
+
 ## 0.1.15
 
 * Added **Ubuntu 20.04** support
