@@ -1,6 +1,6 @@
 {
   "name": "eyp-openvpn",
-  "version": "0.1.16",
+  "version": "1.0.16",
   "author": "Jordi Prats",
   "summary": "openvpn client/server management",
   "license": "Apache-2.0",
