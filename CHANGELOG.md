@@ -1,6 +1,18 @@
 # CHANGELOG
 
-## 0.1.12
+## 0.1.16
+
+*  Added **easy_rsa_crl_days** default set to 7500
+
+## 0.1.15
+
+* Added **Ubuntu 20.04** support
+
+## 0.1.14
+
+* changed certificates file mode for **openvpn::client**
+
+## 0.1.13
 
 * Updated default paramter for **openvpn::client::dev**
 * bugfix Ubuntu 16.04 compatibility
